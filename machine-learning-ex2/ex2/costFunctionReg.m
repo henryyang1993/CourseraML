@@ -20,7 +20,6 @@ grad = zeros(size(theta));
 n = size(theta, 1);
 item1 = (-y) .* log(sigmoid(X * theta)) - (1 - y) .* log(1 - sigmoid(X * theta));
 reg1 = lambda / (2 * m) * sum(theta(2:n, :) .^ 2);
-disp(reg1);
 J = 1 / m * sum(item1) + reg1;
 
 item2 = (sigmoid(X * theta) - y)' * X(:, 1);

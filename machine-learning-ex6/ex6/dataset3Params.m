@@ -23,10 +23,19 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-
-
-
-
+minerr = 1;
+for i = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
+	for j = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
+		model = svmTrain(X, y, i, @(x1, x2) gaussianKernel(x1, x2, j));
+		predictions = svmPredict(model, Xval);
+		err = mean(double(predictions ~= yval));
+		if err < minerr
+			minerr = err;
+			C = i;
+			sigma = j;
+		end
+	end
+end
 
 
 % =========================================================================
